@@ -1,13 +1,14 @@
 package com.job.Job_Application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class HomeController {
@@ -30,10 +31,12 @@ public class HomeController {
     }
 
     @PostMapping("/handleForm")
-    public String handleForm(JobPost jobPost, Model model) {
+    public String handleForm(JobPost jobPost, BindingResult result, Model model) {
+        if (result.hasErrors()) return "addjobs";
         jobPosts.add(jobPost);
         model.addAttribute("jobPost", jobPost);
         return "success";
+        // ISME OBJJECT MAI DATA JO HAI VO PASS K RHE HAI THN HTML ME PRINT KRTE HAI 
     }
 
     @GetMapping("/viewalljobs")
